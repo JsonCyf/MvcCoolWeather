@@ -1,10 +1,12 @@
 package com.sgkj.jsoncyf.mvccoolweather.db;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * Created by JsonCyf on 2018/5/9.
  */
 
-public class Province {
+public class Province extends DataSupport{
     private int id;
     private String provinceName;
     private int provinceCode;
