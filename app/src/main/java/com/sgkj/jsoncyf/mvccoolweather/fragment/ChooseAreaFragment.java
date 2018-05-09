@@ -2,6 +2,7 @@ package com.sgkj.jsoncyf.mvccoolweather.fragment;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 import com.sgkj.jsoncyf.mvccoolweather.R;
+import com.sgkj.jsoncyf.mvccoolweather.activity.WeatherActivity;
 import com.sgkj.jsoncyf.mvccoolweather.db.City;
 import com.sgkj.jsoncyf.mvccoolweather.db.County;
 import com.sgkj.jsoncyf.mvccoolweather.db.Province;
@@ -99,6 +101,12 @@ public class ChooseAreaFragment extends Fragment {
                 }else if (currentLevel==LEVEL_CITY){
                     selectdCity=cityList.get(position);
                     queryCounties();
+                }else if (currentLevel==LEVEL_COUNTY){
+                    String weatherId = countyList.get(position).getWeatherId();
+                    Intent intent=new Intent(getActivity(), WeatherActivity.class);
+                    intent.putExtra("weather_id",weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });

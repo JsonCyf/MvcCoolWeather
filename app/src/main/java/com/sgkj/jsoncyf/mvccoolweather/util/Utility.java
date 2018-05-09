@@ -1,8 +1,11 @@
 package com.sgkj.jsoncyf.mvccoolweather.util;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.sgkj.jsoncyf.mvccoolweather.been.Weather;
 import com.sgkj.jsoncyf.mvccoolweather.db.City;
 import com.sgkj.jsoncyf.mvccoolweather.db.County;
 import com.sgkj.jsoncyf.mvccoolweather.db.Province;
@@ -87,9 +90,21 @@ public class Utility {
         return false;
     }
 
-
-
-
+    /**
+     *将返回的Json数据解析成Weather实体类
+     * */
+    public static Weather handlerWeatherResponse(String response){
+        try {
+            Log.e("handlerWeatherResponse",response);
+            JSONObject jsonObject=new JSONObject(response);
+            JSONArray heWeather = jsonObject.getJSONArray("HeWeather");
+            String weatherContent = heWeather.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent,Weather.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 
