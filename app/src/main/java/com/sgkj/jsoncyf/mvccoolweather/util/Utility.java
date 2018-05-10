@@ -95,7 +95,7 @@ public class Utility {
      * */
     public static Weather handlerWeatherResponse(String response){
         try {
-            Log.e("response",response);
+            Log.e("Weatherresponse",response);
             JSONObject jsonObject=new JSONObject(response);
             JSONArray heWeather = jsonObject.getJSONArray("HeWeather");
             String weatherContent = heWeather.getJSONObject(0).toString();

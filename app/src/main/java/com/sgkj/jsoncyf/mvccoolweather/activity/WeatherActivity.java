@@ -59,6 +59,7 @@ public class WeatherActivity extends AppCompatActivity {
     public SwipeRefreshLayout swipeRefresh;
     private Button navButton;
     public DrawerLayout drawerLayout;
+    public String weatherId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,10 +103,9 @@ public class WeatherActivity extends AppCompatActivity {
 
         SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
-        final String weatherId;
         if (weatherString!=null){//有缓存时直接解析天气数据
             Weather weather = Utility.handlerWeatherResponse(weatherString);
-            weatherId=weather.basic.weatherId;
+            weatherId =weather.basic.weatherId;
             showWeatherInfo(weather);
         }else {//无缓存时去服务器查询天气
             weatherId = getIntent().getStringExtra("weather_id");
@@ -159,7 +159,7 @@ public class WeatherActivity extends AppCompatActivity {
         });
     }
 
-    //根据天气id请求城市天气信息
+    //根据城市id请求城市天气信息
     public void requestWeather(String weatherId) {
         String weaherUrl="http:guolin.tech/api/weather?cityid="+weatherId+"&key=c695e75518ee4e5e865e23ef2d2dae98";
         Log.e(TAG,weaherUrl);
@@ -175,7 +175,6 @@ public class WeatherActivity extends AppCompatActivity {
                 final String responseString = response.body().string();
                 Log.e(TAG,responseString);
                 final Weather weather = Utility.handlerWeatherResponse(responseString);
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
